@@ -19,3 +19,7 @@
 
 # Go workspace file
 go.work
+.idea
+
+part_one/data
+!part_one/data/.gitkeep

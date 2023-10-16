@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  jetstream:
+    image: nats:latest
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command:
+      - -js
+
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_MULTIPLE_DATABASES=document,stats
+    volumes:
+      - "$PWD/docker/postgres:/docker-entrypoint-initdb.d"
+
+  document-service:
+    build:
+      context: .
+      dockerfile: "services/document/docker/Dockerfile"
+    env_file:
+      - services/document/.docker.env
+    volumes:
+      - "$PWD/data:/data"
+    ports:
+      - "9000:9000"
+    restart: on-failure
+    depends_on:
+      - postgres
+      - jetstream
+
+  stats-service:
+    build:
+      context: .
+      dockerfile: "services/stats/docker/Dockerfile"
+    env_file:
+      - services/stats/.docker.env
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    depends_on:
+      - postgres
+      - jetstream
+      - document-service
+

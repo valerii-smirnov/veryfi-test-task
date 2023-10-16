@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package document;
+
+option go_package = "stubs/document";
+
+service DocumentService {
+  rpc GetDocumentByID(GetDocumentByIDRequest) returns (GetDocumentByIDResponse) {}
+}
+
+message GetDocumentByIDRequest {
+  uint64 id = 1;
+}
+
+message GetDocumentByIDResponse {
+  Document Document = 1;
+}
+
+message Document {
+  uint64 id = 1;
+  uint64 veryfiDocumentID = 2;
+  string veryfiDocumentInfo = 3;
+}
