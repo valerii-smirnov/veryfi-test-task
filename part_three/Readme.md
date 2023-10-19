@@ -19,6 +19,9 @@ go test -bench=.
 goos: darwin
 goarch: arm64
 pkg: github.com/valerii-smirnov/veryfi-test-task/part_three/similarity
+
+Benchmark name                                    Calls count     Call execution time
+-------------------------------------------------------------------------------------
 BenchmarkSimilarityLevenshtein-10                     69          16818857 ns/op
 BenchmarkSimilarityHamming-10                     189316              5924 ns/op
 BenchmarkSimilarityJaccard-10                       4656            251090 ns/op
@@ -38,6 +41,9 @@ go test -bench=. -count 2 -benchtime=5s
 goos: darwin
 goarch: arm64
 pkg: github.com/valerii-smirnov/veryfi-test-task/part_three/similarity
+
+Benchmark name                                 Calls count     Call execution time
+-------------------------------------------------------------------------------------
 BenchmarkSimilarityLevenshtein-10                    384          15508491 ns/op
 BenchmarkSimilarityLevenshtein-10                    390          15682371 ns/op
 BenchmarkSimilarityHamming-10                     998826              5825 ns/op
